@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:map_camera/src/components/map_location_data/view/map_location_data.dart';
 import 'package:map_camera/src/components/map_preview_tile/view/map_preview_tile.dart';
 import 'package:map_camera/src/service/bindings.dart';
 
 import 'components/camera_preview/view/map_camera_preview.dart';
+import 'map_camera_controller.dart';
 
 class MapCameraLocation extends StatefulWidget {
   const MapCameraLocation({super.key, this.outerPadding});
@@ -60,7 +62,8 @@ class _MapCameraLocationState extends State<MapCameraLocation> {
 
   @override
   void dispose() {
-    MapCameraBindings().dispose();
+    Get.delete<MapCameraController>(force: true);
+
     super.dispose();
   }
 }

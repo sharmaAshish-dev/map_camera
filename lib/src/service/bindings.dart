@@ -13,8 +13,4 @@ class MapCameraBindings extends Bindings {
       ),
     );
   }
-
-  void dispose() {
-    Get.delete<MapCameraController>();
-  }
 }
