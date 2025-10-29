@@ -6,12 +6,17 @@ class CameraMapApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return mainBody;
+    return mainBody(context);
   }
 
-  Widget get mainBody => Scaffold(
-        body: mainContent,
+  Widget mainBody(BuildContext context) => Scaffold(
+        body: mainContent(context),
       );
 
-  Widget get mainContent => MapCameraLocation();
+  Widget mainContent(BuildContext context) => MapCameraLocation(
+        cameraLensDirection: CameraLensDirection.back,
+        onCapture: (file) {
+          Navigator.of(context).pop(file);
+        },
+      );
 }

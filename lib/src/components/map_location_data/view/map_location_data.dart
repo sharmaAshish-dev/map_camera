@@ -21,14 +21,7 @@ class MapLocationData extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
               color: Colors.black38,
             ),
-        child: IntrinsicHeight(
-          child: Row(
-            children: [
-              Expanded(child: mainContent),
-              actionButton,
-            ],
-          ),
-        ),
+        child: mainContent,
       );
 
   Widget get mainContent => Padding(
@@ -75,25 +68,6 @@ class MapLocationData extends StatelessWidget {
                 ),
               ),
             ],
-          ),
-        ),
-      );
-
-  Widget get actionButton => Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-          width: 80,
-          height: double.infinity,
-          decoration: BoxDecoration(
-            color: Colors.blue,
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: IconButton(
-            onPressed: () => _controller.onCaptureImage,
-            icon: Icon(
-              Icons.camera_alt,
-              color: Colors.white,
-            ),
           ),
         ),
       );

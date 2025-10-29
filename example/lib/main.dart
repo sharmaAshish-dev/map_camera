@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:map_camera/map_camera.dart';
 import 'package:map_camera_example/app.dart';
 
 void main() {
@@ -47,12 +46,14 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: ElevatedButton(
-          onPressed: () {
-            Navigator.of(context).push(
+          onPressed: () async {
+            final result = await Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => CameraMapApp(),
               ),
             );
+
+            print(result);
           },
           child: Text('Open Map Camera'),
         ),

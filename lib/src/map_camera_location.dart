@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:map_camera/src/components/map_location_data/view/map_location_data.dart';
@@ -8,18 +11,26 @@ import 'components/camera_preview/view/map_camera_preview.dart';
 import 'map_camera_controller.dart';
 
 class MapCameraLocation extends StatefulWidget {
-  const MapCameraLocation({super.key, this.outerPadding});
+  const MapCameraLocation({super.key, this.outerPadding, required this.onCapture, this.cameraLensDirection});
 
   final EdgeInsets? outerPadding;
+  final ValueChanged<File> onCapture;
+  final CameraLensDirection? cameraLensDirection;
 
   @override
   State<MapCameraLocation> createState() => _MapCameraLocationState();
 }
 
 class _MapCameraLocationState extends State<MapCameraLocation> {
+  late MapCameraController controller;
+
   @override
   void initState() {
-    MapCameraBindings().dependencies();
+    MapCameraBindings(
+      cameraLensDirection: widget.cameraLensDirection,
+    ).dependencies();
+
+    controller = Get.find();
     super.initState();
   }
 
@@ -41,22 +52,58 @@ class _MapCameraLocationState extends State<MapCameraLocation> {
             bottom: 0,
             left: 0,
             right: 0,
-            child: mapData,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                actionButton,
+                mapData,
+              ],
+            ),
           ),
         ],
       );
 
-  Widget get mapData => Padding(
-        padding: widget.outerPadding ?? EdgeInsets.all(16),
-        child: Row(
-          children: [
-            MapPreviewTile(),
-            SizedBox(width: 16),
-            Expanded(
-              flex: 2,
-              child: MapLocationData(),
+  Widget get mapData => RepaintBoundary(
+        key: controller.mapDataKey,
+        child: Padding(
+          padding: widget.outerPadding ?? EdgeInsets.all(16),
+          child: Row(
+            children: [
+              MapPreviewTile(),
+              SizedBox(width: 16),
+              Expanded(
+                flex: 2,
+                child: MapLocationData(),
+              ),
+            ],
+          ),
+        ),
+      );
+
+  Widget get actionButton => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Container(
+          width: 80,
+          height: 80,
+          decoration: BoxDecoration(
+            color: Colors.blue,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: IconButton(
+            onPressed: () async {
+              final captured = await controller.onCaptureImage();
+
+              if (captured == null) {
+                return;
+              }
+
+              widget.onCapture(captured);
+            },
+            icon: Icon(
+              Icons.camera_alt,
+              color: Colors.white,
             ),
-          ],
+          ),
         ),
       );
 
