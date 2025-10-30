@@ -105,9 +105,15 @@ class _MapCameraLocationState extends State<MapCameraLocation> {
                 ),
               );
             },
-            icon: const Icon(
-              Icons.camera_alt,
-              color: Colors.white,
+            icon: Obx(
+              () => controller.isCapturing.isFalse
+                  ? const Icon(
+                      Icons.camera_alt,
+                      color: Colors.white,
+                    )
+                  : const CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation(Colors.white),
+                    ),
             ),
           ),
         ),
