@@ -14,7 +14,9 @@ class MapCameraPreview extends StatelessWidget {
   }
 
   Widget mainBody(BuildContext context) => Obx(
-        () => _controller.isCameraInitialized.isTrue ? mainContent(context) : Center(child: CircularProgressIndicator()),
+        () => _controller.isCameraInitialized.isTrue
+            ? mainContent(context)
+            : const Center(child: CircularProgressIndicator()),
       );
 
   Widget mainContent(BuildContext context) {
@@ -32,9 +34,9 @@ class MapCameraPreview extends StatelessWidget {
 }
 
 class _MediaSizeClipper extends CustomClipper<Rect> {
-  final Size mediaSize;
-
   const _MediaSizeClipper(this.mediaSize);
+
+  final Size mediaSize;
 
   @override
   Rect getClip(Size size) {

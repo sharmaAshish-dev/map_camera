@@ -32,37 +32,37 @@ class MapLocationData extends StatelessWidget {
             children: [
               Text(
                 _controller.locationService.locationName.value,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
                 ),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               Text(
                 _controller.locationService.subLocationName.value,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 8,
                   color: Colors.white,
                 ),
               ),
               Text(
                 'Lat: ${_controller.locationService.currentPosition.value.latitude}',
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 8,
                   color: Colors.white,
                 ),
               ),
               Text(
                 'Long: ${_controller.locationService.currentPosition.value.longitude}',
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 8,
                   color: Colors.white,
                 ),
               ),
               Text(
                 timestamp,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 8,
                   color: Colors.white,
                 ),

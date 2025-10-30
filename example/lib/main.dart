@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:map_camera_example/app.dart';
 
@@ -53,7 +54,9 @@ class MyHomePage extends StatelessWidget {
               ),
             );
 
-            print(result);
+            if (kDebugMode) {
+              print(result);
+            }
           },
           child: Text('Open Map Camera'),
         ),

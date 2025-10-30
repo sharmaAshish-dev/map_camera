@@ -43,7 +43,7 @@ class _MapCameraLocationState extends State<MapCameraLocation> {
   Widget get mainBody => Stack(
         fit: StackFit.expand,
         children: [
-          Positioned(
+          const Positioned(
             top: 0,
             left: 0,
             right: 0,
@@ -67,8 +67,8 @@ class _MapCameraLocationState extends State<MapCameraLocation> {
   Widget get mapData => RepaintBoundary(
         key: controller.mapDataKey,
         child: Padding(
-          padding: widget.outerPadding ?? EdgeInsets.all(16),
-          child: Row(
+          padding: widget.outerPadding ?? const EdgeInsets.all(16),
+          child: const Row(
             children: [
               MapPreviewTile(),
               SizedBox(width: 16),
@@ -105,7 +105,7 @@ class _MapCameraLocationState extends State<MapCameraLocation> {
                 ),
               );
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.camera_alt,
               color: Colors.white,
             ),

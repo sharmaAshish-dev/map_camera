@@ -55,7 +55,9 @@ class MapCameraController extends GetxController {
   }
 
   Future<File?> onCaptureImage() async {
-    if (!cameraController.value.isInitialized || isCapturing.isTrue) return null;
+    if (!cameraController.value.isInitialized || isCapturing.isTrue) {
+      return null;
+    }
 
     try {
       isCapturing.value = true;
