@@ -1,20 +1,21 @@
-import 'dart:io';
-
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:map_camera/src/components/map_location_data/view/map_location_data.dart';
 import 'package:map_camera/src/components/map_preview_tile/view/map_preview_tile.dart';
+import 'package:map_camera/src/models/map_camera_result.dart';
 import 'package:map_camera/src/service/bindings.dart';
 
 import 'components/camera_preview/view/map_camera_preview.dart';
 import 'map_camera_controller.dart';
 
+typedef MapCameraCaptureCallback = void Function(MapCameraResult result);
+
 class MapCameraLocation extends StatefulWidget {
   const MapCameraLocation({super.key, this.outerPadding, required this.onCapture, this.cameraLensDirection});
 
   final EdgeInsets? outerPadding;
-  final ValueChanged<File> onCapture;
+  final MapCameraCaptureCallback onCapture;
   final CameraLensDirection? cameraLensDirection;
 
   @override
@@ -97,7 +98,12 @@ class _MapCameraLocationState extends State<MapCameraLocation> {
                 return;
               }
 
-              widget.onCapture(captured);
+              widget.onCapture(
+                MapCameraResult(
+                  imageFile: captured,
+                  position: controller.locationService.currentPosition.value,
+                ),
+              );
             },
             icon: Icon(
               Icons.camera_alt,
