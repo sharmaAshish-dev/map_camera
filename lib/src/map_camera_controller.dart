@@ -130,6 +130,27 @@ class MapCameraController extends GetxController {
     }
   }
 
+  Future<void> cleanUpCapturedData() async {
+    try {
+      final directory = await getTemporaryDirectory();
+
+      // Get all files inside the temp directory
+      final files = directory.listSync();
+
+      for (final file in files) {
+        // Delete only your capture-related files
+        if (file is File &&
+            (file.path.contains('capture_') || file.path.contains('merged_') || file.path.contains('screenshot'))) {
+          await file.delete();
+        }
+      }
+
+      debugPrint('Temporary captured images cleaned up successfully');
+    } catch (e) {
+      debugPrint('Error cleaning captured data: $e');
+    }
+  }
+
   @override
   void onClose() {
     cameraController.dispose();

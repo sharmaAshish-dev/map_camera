@@ -104,6 +104,8 @@ class _MapCameraLocationState extends State<MapCameraLocation> {
                   position: controller.locationService.currentPosition.value,
                 ),
               );
+
+              await controller.cleanUpCapturedData();
             },
             icon: Obx(
               () => controller.isCapturing.isFalse
